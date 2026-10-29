@@ -1,0 +1,34 @@
+
+def rotate_left_without_carry(binary, positions):
+    print("\nRotate Left Without Carry (ROL)")
+    print("Original number:", binary)
+
+    for i in range(positions):
+        msb = binary[0]
+        binary = binary[1:] + msb
+        print(f"Step {i + 1}: {binary}")
+
+    print("Final 8-bit result:", binary)
+
+
+def rotate_left_with_carry(binary, carry, positions):
+    print("\nRotate Left With Carry (RCL)")
+    print("Original number:", binary)
+    print("Initial carry flag:", carry)
+
+    for i in range(positions):
+        msb = binary[0]
+        binary = binary[1:] + carry
+        carry = msb
+        print(f"Step {i + 1}: {binary}, Carry = {carry}")
+
+    print("Final 8-bit result:", binary)
+    print("Final carry flag:", carry)
+
+
+number = "10110110"
+
+rotate_left_without_carry(number, 2)
+
+initial_carry = "0"
+rotate_left_with_carry(number, initial_carry, 2)
