@@ -1,0 +1,43 @@
+
+def to_8bit(n):
+    return format(n & 0xFF, '08b')
+
+
+def signed_value(binary):
+    value = int(binary, 2)
+    if value >= 128:
+        value -= 256
+    return value
+
+
+def perform_operation(a, b, operation):
+    bin_a = to_8bit(a)
+    bin_b = to_8bit(b)
+
+    if operation == '+':
+        raw_result = int(bin_a, 2) + int(bin_b, 2)
+    else:
+        raw_result = int(bin_a, 2) - int(bin_b, 2)
+
+    result = raw_result & 0xFF
+    result_binary = format(result, '08b')
+    result_decimal = signed_value(result_binary)
+
+    overflow = not (-128 <= (
+        a + b if operation == '+' else a - b
+    ) <= 127)
+
+    print("Operand 1:", bin_a, "(", a, ")")
+    print("Operand 2:", bin_b, "(", b, ")")
+    print("Operation:", operation)
+    print("Result in binary:", result_binary)
+    print("Result in decimal:", result_decimal)
+    print("Arithmetic overflow:", "Yes" if overflow else "No")
+    print("-" * 40)
+
+
+print("a) 34 + (+27)")
+perform_operation(34, 27, '+')
+
+print("b) (-34) - (-27)")
+perform_operation(-34, -27, '-')
